@@ -24,6 +24,7 @@ Map<String, FGBGType> messageToFGBGMapping = {
   "ON_RESUME": FGBGType.enteredForeground,
   "ON_STOP": FGBGType.enteredBackground,
   "ON_CREATE": FGBGType.willEnterForeground,
+  "ON_START": FGBGType.willEnterForeground,
   "ON_PAUSE": FGBGType.willSwitchContext,
   "ON_DESTROY": FGBGType.willTerminate,
 };
@@ -31,8 +32,9 @@ Map<String, FGBGType> messageToFGBGMapping = {
 class FGBGEvents {
   static const _channel = EventChannel("com.ajinasokan.flutter_fgbg/events");
 
-  static Stream<FGBGType> get stream =>
-      _channel.receiveBroadcastStream().map((event) => messageToFGBGMapping[event] ?? FGBGType.unknown);
+  static Stream<FGBGType> get stream => _channel
+      .receiveBroadcastStream()
+      .map((event) => messageToFGBGMapping[event] ?? FGBGType.unknown);
 }
 
 class FGBGNotifier extends StatefulWidget {
